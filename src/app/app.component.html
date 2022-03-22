@@ -1,0 +1,30 @@
+<form #parentForm="ngForm" (submit)="submitForm(parentForm)">
+  <ng-container *ngFor="let form of mainForm.formFields; let index = index">
+    <input
+      type="form.formField1.type"
+      name="formFirld1_{{ form.id }}"
+      [(ngModel)]="form.formField1.value"
+      placeholder="form.formField1.placeholder"
+      required
+    />
+    <div *ngIf="parentForm.submitted && !form.formField1.value">
+      Form field 1 is required
+    </div>
+    <input
+      type="form.formField2.type"
+      name="formFirld2_{{ form.id }}"
+      [(ngModel)]="form.formField2.value"
+      placeholder="form.formField2.placeholder"
+      required
+    />
+    <div *ngIf="parentForm.submitted && !form.formField2.value">
+      Form field 2 is required
+    </div>
+    <button (click)="removeForm(index)">Remove form</button>
+  </ng-container>
+  <button type="submit">Submit</button>
+  <button type="button" (click)="parentForm.reset()">Reset</button>
+</form>
+<button (click)="addForm()" [disabled]="!parentForm.form.valid">
+  Add new form
+</button>
